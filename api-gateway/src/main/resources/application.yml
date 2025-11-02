@@ -1,0 +1,12 @@
+spring:
+#  security:
+#    oauth2:
+#      resourceserver:
+#        jwt:
+#          issuer-uri: http://localhost:8080/realms/starter-app
+#          jwk-set-uri: http://localhost:8080/realms/starter-app/protocol/openid-connect/certs
+
+  application:
+    name: api-gateway
+  config:
+    import: optional:configserver:http://localhost:8888

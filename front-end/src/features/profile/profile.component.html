@@ -1,0 +1,66 @@
+<div class="profile-container">
+  <div class="header">
+    <h1>User Profile</h1>
+    <button mat-raised-button color="primary" routerLink="/dashboard">
+      <mat-icon>arrow_back</mat-icon>
+      Back to Dashboard
+    </button>
+  </div>
+
+  <div class="profile-content" *ngIf="!isLoading && user">
+    <mat-card class="profile-card">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>account_circle</mat-icon>
+          Personal Information
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-list>
+          <mat-list-item>
+            <span matListItemTitle>Username</span>
+            <span matListItemLine>{{ user.username }}</span>
+          </mat-list-item>
+          <mat-list-item>
+            <span matListItemTitle>Email Address</span>
+            <span matListItemLine>{{ user.email }}</span>
+          </mat-list-item>
+          <mat-list-item *ngIf="user.firstName">
+            <span matListItemTitle>First Name</span>
+            <span matListItemLine>{{ user.firstName }}</span>
+          </mat-list-item>
+          <mat-list-item *ngIf="user.lastName">
+            <span matListItemTitle>Last Name</span>
+            <span matListItemLine>{{ user.lastName }}</span>
+          </mat-list-item>
+          <mat-list-item>
+            <span matListItemTitle>User ID</span>
+            <span matListItemLine>{{ user.id }}</span>
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="roles-card" *ngIf="user.roles && user.roles.length > 0">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>verified_user</mat-icon>
+          Realm Roles
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-list>
+          <mat-list-item *ngFor="let role of user.roles">
+            <span>{{ role }}</span>
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div *ngIf="isLoading" class="loading">
+    <mat-icon class="spinner">sync</mat-icon>
+    <p>Loading profile...</p>
+  </div>
+</div>
+

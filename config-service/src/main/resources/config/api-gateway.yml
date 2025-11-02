@@ -1,0 +1,22 @@
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/starter-app
+          jwk-set-uri: http://localhost:8080/realms/starter-app/protocol/openid-connect/certs
+  main:
+    web-application-type: reactive
+  cloud:
+    gateway:
+      default-filters:
+        - TokenRelay
+      server:
+        webflux:
+          discovery:
+            locator:
+              enabled: true
+              lower-case-service-id: true
+
+server:
+  port: 9999

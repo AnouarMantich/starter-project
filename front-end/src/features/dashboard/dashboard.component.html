@@ -1,0 +1,84 @@
+<div class="dashboard-container">
+  <div class="header">
+    <h1>Dashboard</h1>
+    <button mat-raised-button color="warn" (click)="logout()">
+      <mat-icon>logout</mat-icon>
+      Logout
+    </button>
+  </div>
+
+  <div class="content-grid" *ngIf="!isLoading && user">
+    <mat-card class="user-info-card">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>account_circle</mat-icon>
+          User Information
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-list>
+          <mat-list-item>
+            <span matListItemTitle>Username</span>
+            <span matListItemLine>{{ user.username }}</span>
+          </mat-list-item>
+          <mat-list-item>
+            <span matListItemTitle>Email</span>
+            <span matListItemLine>{{ user.email }}</span>
+          </mat-list-item>
+          <mat-list-item *ngIf="user.firstName || user.lastName">
+            <span matListItemTitle>Full Name</span>
+            <span matListItemLine>{{ user.firstName }} {{ user.lastName }}</span>
+          </mat-list-item>
+          <mat-list-item>
+            <span matListItemTitle>User ID</span>
+            <span matListItemLine>{{ user.id }}</span>
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="roles-card">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>verified_user</mat-icon>
+          Roles
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="roles-container" *ngIf="user.roles && user.roles.length > 0">
+          <mat-chip *ngFor="let role of user.roles">{{ role }}</mat-chip>
+        </div>
+        <p *ngIf="!user.roles || user.roles.length === 0" class="no-roles">
+          No roles assigned
+        </p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="quick-actions-card">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>dashboard</mat-icon>
+          Quick Actions
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="actions-grid">
+          <button mat-raised-button color="primary" routerLink="/profile">
+            <mat-icon>person</mat-icon>
+            View Profile
+          </button>
+          <button mat-raised-button color="accent" routerLink="/admin" *ngIf="user.roles?.includes('admin')">
+            <mat-icon>admin_panel_settings</mat-icon>
+            Admin Panel
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div *ngIf="isLoading" class="loading">
+    <mat-icon class="spinner">sync</mat-icon>
+    <p>Loading...</p>
+  </div>
+</div>
+
