@@ -37,11 +37,11 @@ public class UserController {
 
             User user = service.getOrCreateUser(keycloakId, email, fullName, username);
 
-            if (!user.isProfileCompleted()) {
-                return ResponseEntity.status(HttpStatus.TEMPORARY_REDIRECT)
-                        .header("X-Profile-Incomplete", "true")
-                        .body(UserMapper.toResponse(user));
-            }
+//            if (!user.isProfileCompleted()) {
+//                return ResponseEntity.status(HttpStatus.TEMPORARY_REDIRECT)
+//                        .header("X-Profile-Incomplete", "true")
+//                        .body(UserMapper.toResponse(user));
+//            }
 
             return ResponseEntity.ok(UserMapper.toResponse(user));
         });
