@@ -3,9 +3,9 @@ import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http'
 import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { catchError, map, tap, shareReplay, filter } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
-import { PageableResponse } from '../models/pageable-response.model';
-import { User } from '../models/user.model';
 
+import { User } from '../../shared/models/user.model';
+import { PageableResponse } from '../../shared/models/pageable-response.model';
 @Injectable({
   providedIn: 'root',
 })

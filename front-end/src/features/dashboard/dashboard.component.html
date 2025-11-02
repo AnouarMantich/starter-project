@@ -43,8 +43,11 @@
       <div class="card-body">
         <div class="actions-grid">
           <button class="btn btn-primary" routerLink="/profile">👤 View Profile</button>
-          <button class="btn btn-accent" routerLink="/admin" *ngIf="user.roles?.includes('admin')">
+          <button class="btn btn-accent" routerLink="/admin" *ngIf="user.roles?.includes('ADMIN')">
             🧑‍💼 Admin Panel
+          </button>
+          <button class="btn btn-accent" routerLink="/users" *ngIf="user.roles?.includes('ADMIN')">
+            Users
           </button>
         </div>
       </div>

@@ -1,21 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { AuthService } from '../../core/services/auth.service';
 import { User } from '../../shared/models/user.model';
+import { AuthService } from '../../core/services/auth.service';
 
-/**
- * Dashboard component - protected route
- * Shows user information and quick actions
- */
 @Component({
-  selector: 'app-dashboard',
+  selector: 'app-navbar',
   standalone: true,
   imports: [CommonModule, RouterModule],
-  templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.css',
+  templateUrl: './navbar-component.html',
+  styleUrls: ['./navbar-component.css'],
 })
-export class DashboardComponent implements OnInit {
+export class NavbarComponent {
   user: User | null = null;
   isLoading = true;
 

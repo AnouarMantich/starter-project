@@ -9,14 +9,14 @@ import { environment } from '../../environments/environment';
  * Service for managing authentication state and user profile
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private authStateSubject = new BehaviorSubject<AuthState>({
     isAuthenticated: false,
     user: null,
     token: null,
-    refreshToken: null
+    refreshToken: null,
   });
 
   public authState$: Observable<AuthState> = this.authStateSubject.asObservable();
@@ -53,21 +53,21 @@ export class AuthService {
         lastName: profile?.lastName,
         roles: this.keycloakService.getUserRoles(),
         realmRoles: this.keycloakService.getUserRoles(),
-        clientRoles: { [this.getClientId()]: this.keycloakService.getClientRoles() }
+        clientRoles: { [this.getClientId()]: this.keycloakService.getClientRoles() },
       };
 
       this.authStateSubject.next({
         isAuthenticated: true,
         user,
         token: token || null,
-        refreshToken: refreshToken || null
+        refreshToken: refreshToken || null,
       });
     } else {
       this.authStateSubject.next({
         isAuthenticated: false,
         user: null,
         token: null,
-        refreshToken: null
+        refreshToken: null,
       });
     }
   }
@@ -83,9 +83,7 @@ export class AuthService {
    * Get current user
    */
   getCurrentUser(): Observable<User | null> {
-    return this.authState$.pipe(
-      switchMap((state) => of(state.user))
-    );
+    return this.authState$.pipe(switchMap((state) => of(state.user)));
   }
 
   /**
@@ -155,4 +153,3 @@ export class AuthService {
     return environment.keycloak.clientId;
   }
 }
-

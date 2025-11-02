@@ -17,7 +17,7 @@
       </mat-card-header>
       <mat-card-content>
         <p>Welcome to the admin panel. This area is restricted to users with admin privileges.</p>
-        
+
         <div class="admin-info" *ngIf="user">
           <p><strong>Logged in as:</strong> {{ user.username }}</p>
           <p><strong>Email:</strong> {{ user.email }}</p>
@@ -41,4 +41,3 @@
     <p>Loading admin panel...</p>
   </div>
 </div>
-

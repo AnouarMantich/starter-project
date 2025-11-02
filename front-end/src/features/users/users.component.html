@@ -1,0 +1,114 @@
+<div class="users-container">
+  <h2>Users</h2>
+
+  <div *ngIf="loading" class="loading">Loading users...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <!-- Users table -->
+  <table *ngIf="!loading && !error" class="users-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Username</th>
+        <th>Full Name</th>
+        <th>Email</th>
+        <th>Roles</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let user of users; index as i">
+        <td>{{ i + 1 + currentPage * pageSize }}</td>
+        <!-- show username if present, otherwise email or fullName as fallback -->
+        <td>{{ user.username || user.email || user.fullName || '-' }}</td>
+
+        <!-- support backend fullName or firstName+lastName -->
+        <td>
+          {{
+            user.fullName ||
+              ((user.firstName || '') + ' ' + (user.lastName || '')).trim() ||
+              user.email ||
+              '-'
+          }}
+        </td>
+
+        <td>{{ user.email }}</td>
+
+        <!-- support roles array or single role string -->
+        <td>
+          {{ user.roles?.length ? user.roles.join(', ') : user.roles ? user.roles : '-' }}
+        </td>
+
+        <td>
+          <button class="view-btn" (click)="openUserDetails(user)">👁 View</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Pagination -->
+  <div class="pagination" *ngIf="totalPages > 1">
+    <button (click)="previousPage()" [disabled]="currentPage === 0">Previous</button>
+    <span>Page {{ currentPage + 1 }} of {{ totalPages }}</span>
+    <button (click)="nextPage()" [disabled]="currentPage >= totalPages - 1">Next</button>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal-backdrop" *ngIf="selectedUser" (click)="closeModal()"></div>
+
+  <div class="modal" *ngIf="selectedUser">
+    <h3>User Details</h3>
+    <div class="details">
+      <p><strong>ID:</strong> {{ selectedUser.id }}</p>
+      <p><strong>Username:</strong> {{ selectedUser.username }}</p>
+      <p *ngIf="selectedUser.firstName || selectedUser.lastName">
+        <strong>Full Name:</strong>
+        {{ (selectedUser.firstName || '') + ' ' + (selectedUser.lastName || '') }}
+      </p>
+      <p><strong>Email:</strong> {{ selectedUser.email }}</p>
+
+      <!-- ✅ Safe Roles -->
+      <ng-container *ngIf="selectedUser.roles as roles; else rolesFallback">
+        <p>
+          <strong>Roles:</strong>
+          {{ roles.length ? roles.join(', ') : selectedUser.roles ? selectedUser.roles : '-' }}
+        </p>
+      </ng-container>
+      <ng-template #rolesFallback>
+        <p><strong>Roles:</strong> {{ selectedUser.roles ? selectedUser.roles : '-' }}</p>
+      </ng-template>
+
+      <!-- ✅ Safe Realm Roles -->
+      <ng-container *ngIf="selectedUser.realmRoles as realmRoles; else noRealmRoles">
+        <p><strong>Realm Roles:</strong> {{ realmRoles.length ? realmRoles.join(', ') : '-' }}</p>
+      </ng-container>
+      <ng-template #noRealmRoles>
+        <p><strong>Realm Roles:</strong> -</p>
+      </ng-template>
+
+      <!-- ✅ Safe Client Roles -->
+      <ng-container
+        *ngIf="
+          selectedUser.clientRoles && objectKeys(selectedUser.clientRoles).length;
+          else noClientRoles
+        "
+      >
+        <strong>Client Roles:</strong>
+        <ul>
+          <li *ngFor="let client of objectKeys(selectedUser.clientRoles)">
+            {{ client }}:
+            {{
+              selectedUser.clientRoles[client]?.length
+                ? selectedUser.clientRoles[client].join(', ')
+                : '-'
+            }}
+          </li>
+        </ul>
+      </ng-container>
+      <ng-template #noClientRoles>-</ng-template>
+    </div>
+
+    <button class="close-btn" (click)="closeModal()">Close</button>
+  </div>
+</div>

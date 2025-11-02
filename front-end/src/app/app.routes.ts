@@ -10,33 +10,41 @@ export const routes: Routes = [
   {
     path: '',
     redirectTo: '/home',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'home',
-    loadComponent: () => import('../features/home/home.component').then(m => m.HomeComponent)
+    loadComponent: () => import('../features/home/home.component').then((m) => m.HomeComponent),
   },
   {
     path: 'login',
-    loadComponent: () => import('../auth/components/login/login.component').then(m => m.LoginComponent)
+    loadComponent: () =>
+      import('../auth/components/login/login.component').then((m) => m.LoginComponent),
   },
   {
     path: 'dashboard',
-    loadComponent: () => import('../features/dashboard/dashboard.component').then(m => m.DashboardComponent),
-    canActivate: [authGuard]
+    loadComponent: () =>
+      import('../features/dashboard/dashboard.component').then((m) => m.DashboardComponent),
+    canActivate: [authGuard],
   },
   {
     path: 'profile',
-    loadComponent: () => import('../features/profile/profile.component').then(m => m.ProfileComponent),
-    canActivate: [authGuard]
+    loadComponent: () =>
+      import('../features/profile/profile.component').then((m) => m.ProfileComponent),
+    canActivate: [authGuard],
   },
   {
     path: 'admin',
-    loadComponent: () => import('../features/admin/admin.component').then(m => m.AdminComponent),
-    canActivate: [authGuard, roleGuard(['admin'])]
+    loadComponent: () => import('../features/admin/admin.component').then((m) => m.AdminComponent),
+    canActivate: [authGuard, roleGuard(['ADMIN'])],
+  },
+  {
+    path: 'users',
+    loadComponent: () => import('../features/users/users.component').then((m) => m.UsersComponent),
+    canActivate: [authGuard, roleGuard(['ADMIN'])],
   },
   {
     path: '**',
-    redirectTo: '/home'
-  }
+    redirectTo: '/home',
+  },
 ];

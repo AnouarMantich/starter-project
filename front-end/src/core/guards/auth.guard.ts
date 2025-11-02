@@ -1,5 +1,10 @@
 import { inject } from '@angular/core';
-import { Router, CanActivateFn, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import {
+  Router,
+  CanActivateFn,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { map, take } from 'rxjs/operators';
 
@@ -48,4 +53,3 @@ export const roleGuard = (roles: string[]): CanActivateFn => {
     return false;
   };
 };
-

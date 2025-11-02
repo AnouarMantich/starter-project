@@ -21,19 +21,16 @@ import { User } from '../../shared/models/user.model';
     MatCardModule,
     MatButtonModule,
     MatIconModule,
-    MatSnackBarModule
+    MatSnackBarModule,
   ],
   templateUrl: './admin.component.html',
-  styleUrl: './admin.component.css'
+  styleUrl: './admin.component.css',
 })
 export class AdminComponent implements OnInit {
   user: User | null = null;
   isLoading = true;
 
-  constructor(
-    private authService: AuthService,
-    private snackBar: MatSnackBar
-  ) {}
+  constructor(private authService: AuthService, private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     this.authService.getCurrentUser().subscribe((user) => {
@@ -42,10 +39,9 @@ export class AdminComponent implements OnInit {
 
       if (user && !this.authService.hasRole('admin')) {
         this.snackBar.open('You do not have permission to access this page', 'Close', {
-          duration: 5000
+          duration: 5000,
         });
       }
     });
   }
 }
-

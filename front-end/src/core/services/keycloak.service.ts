@@ -8,7 +8,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
  * Handles initialization, login, logout, and token management
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class KeycloakService {
   private keycloakInstance: Keycloak | undefined;
@@ -26,7 +26,7 @@ export class KeycloakService {
       const config = {
         url: environment.keycloak.url,
         realm: environment.keycloak.realm,
-        clientId: environment.keycloak.clientId
+        clientId: environment.keycloak.clientId,
       };
 
       this.keycloakInstance = new Keycloak(config);
@@ -36,7 +36,7 @@ export class KeycloakService {
           onLoad: 'check-sso',
           silentCheckSsoRedirectUri: window.location.origin + '/assets/silent-check-sso.html',
           pkceMethod: 'S256',
-          checkLoginIframe: false
+          checkLoginIframe: false,
         })
         .then((authenticated) => {
           this.isAuthenticatedSubject.next(authenticated);
@@ -85,7 +85,7 @@ export class KeycloakService {
   login(redirectUri?: string): void {
     if (this.keycloakInstance) {
       this.keycloakInstance.login({
-        redirectUri: redirectUri || window.location.origin
+        redirectUri: redirectUri || window.location.origin,
       });
     }
   }
@@ -97,7 +97,7 @@ export class KeycloakService {
   logout(redirectUri?: string): void {
     if (this.keycloakInstance) {
       this.keycloakInstance.logout({
-        redirectUri: redirectUri || window.location.origin + '/login'
+        redirectUri: redirectUri || window.location.origin + '/login',
       });
       this.isAuthenticatedSubject.next(false);
     }
@@ -110,7 +110,7 @@ export class KeycloakService {
   register(redirectUri?: string): void {
     if (this.keycloakInstance) {
       this.keycloakInstance.register({
-        redirectUri: redirectUri || window.location.origin
+        redirectUri: redirectUri || window.location.origin,
       });
     }
   }
@@ -167,7 +167,7 @@ export class KeycloakService {
    * Check if user has any of the specified roles
    */
   hasAnyRole(roles: string[]): boolean {
-    return roles.some(role => this.hasRole(role));
+    return roles.some((role) => this.hasRole(role));
   }
 
   /**
@@ -209,4 +209,3 @@ export class KeycloakService {
     }
   }
 }
-
