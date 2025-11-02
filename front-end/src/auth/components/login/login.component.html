@@ -1,35 +1,24 @@
 <div class="login-container">
-  <mat-card class="login-card">
-    <mat-card-header>
-      <mat-card-title>Login</mat-card-title>
-      <mat-card-subtitle>Sign in to your account</mat-card-subtitle>
-    </mat-card-header>
+  <div class="login-card">
+    <div class="login-header">
+      <img src="assets/logo.png" alt="App Logo" class="login-logo" />
+      <h1>Welcome Back</h1>
+      <p>Sign in to continue to your account</p>
+    </div>
 
-    <mat-card-content>
-      <p class="login-description">
-        Click the button below to sign in using Keycloak authentication.
-      </p>
-    </mat-card-content>
-
-    <mat-card-actions>
-      <button
-        mat-raised-button
-        color="primary"
-        (click)="login()"
-        [disabled]="isLoading"
-        class="full-width-button">
-        {{ isLoading ? 'Signing in...' : 'Sign In' }}
+    <div class="login-content">
+      <button class="btn btn-primary" (click)="login()" [disabled]="isLoading">
+        <span *ngIf="!isLoading">Sign In with Keycloak</span>
+        <span *ngIf="isLoading" class="spinner"></span>
       </button>
 
-      <button
-        mat-button
-        color="accent"
-        (click)="register()"
-        [disabled]="isLoading"
-        class="full-width-button">
+      <button class="btn btn-secondary" (click)="register()" [disabled]="isLoading">
         Create New Account
       </button>
-    </mat-card-actions>
-  </mat-card>
-</div>
+    </div>
 
+    <div class="login-footer">
+      <p>© 2025 Your App Name. All rights reserved.</p>
+    </div>
+  </div>
+</div>

@@ -1,84 +1,59 @@
 <div class="dashboard-container">
-  <div class="header">
+  <header class="dashboard-header">
     <h1>Dashboard</h1>
-    <button mat-raised-button color="warn" (click)="logout()">
-      <mat-icon>logout</mat-icon>
-      Logout
-    </button>
-  </div>
+    <button class="btn btn-logout" (click)="logout()">⎋ Logout</button>
+  </header>
 
-  <div class="content-grid" *ngIf="!isLoading && user">
-    <mat-card class="user-info-card">
-      <mat-card-header>
-        <mat-card-title>
-          <mat-icon>account_circle</mat-icon>
-          User Information
-        </mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <mat-list>
-          <mat-list-item>
-            <span matListItemTitle>Username</span>
-            <span matListItemLine>{{ user.username }}</span>
-          </mat-list-item>
-          <mat-list-item>
-            <span matListItemTitle>Email</span>
-            <span matListItemLine>{{ user.email }}</span>
-          </mat-list-item>
-          <mat-list-item *ngIf="user.firstName || user.lastName">
-            <span matListItemTitle>Full Name</span>
-            <span matListItemLine>{{ user.firstName }} {{ user.lastName }}</span>
-          </mat-list-item>
-          <mat-list-item>
-            <span matListItemTitle>User ID</span>
-            <span matListItemLine>{{ user.id }}</span>
-          </mat-list-item>
-        </mat-list>
-      </mat-card-content>
-    </mat-card>
+  <div class="dashboard-content" *ngIf="!isLoading && user">
+    <!-- User Information Card -->
+    <div class="card user-info-card">
+      <div class="card-header">
+        <h2>👤 User Information</h2>
+      </div>
+      <div class="card-body">
+        <ul class="info-list">
+          <li><strong>Username:</strong> {{ user.username }}</li>
+          <li><strong>Email:</strong> {{ user.email }}</li>
+          <li *ngIf="user.firstName || user.lastName">
+            <strong>Full Name:</strong> {{ user.firstName }} {{ user.lastName }}
+          </li>
+          <li><strong>User ID:</strong> {{ user.id }}</li>
+        </ul>
+      </div>
+    </div>
 
-    <mat-card class="roles-card">
-      <mat-card-header>
-        <mat-card-title>
-          <mat-icon>verified_user</mat-icon>
-          Roles
-        </mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <div class="roles-container" *ngIf="user.roles && user.roles.length > 0">
-          <mat-chip *ngFor="let role of user.roles">{{ role }}</mat-chip>
+    <!-- Roles Card -->
+    <div class="card roles-card">
+      <div class="card-header">
+        <h2>🛡️ Roles</h2>
+      </div>
+      <div class="card-body">
+        <div *ngIf="user.roles && user.roles.length > 0" class="roles-container">
+          <span class="role-chip" *ngFor="let role of user.roles">{{ role }}</span>
         </div>
-        <p *ngIf="!user.roles || user.roles.length === 0" class="no-roles">
-          No roles assigned
-        </p>
-      </mat-card-content>
-    </mat-card>
+        <p *ngIf="!user.roles || user.roles.length === 0" class="no-roles">No roles assigned</p>
+      </div>
+    </div>
 
-    <mat-card class="quick-actions-card">
-      <mat-card-header>
-        <mat-card-title>
-          <mat-icon>dashboard</mat-icon>
-          Quick Actions
-        </mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
+    <!-- Quick Actions -->
+    <div class="card quick-actions-card">
+      <div class="card-header">
+        <h2>⚡ Quick Actions</h2>
+      </div>
+      <div class="card-body">
         <div class="actions-grid">
-          <button mat-raised-button color="primary" routerLink="/profile">
-            <mat-icon>person</mat-icon>
-            View Profile
-          </button>
-          <button mat-raised-button color="accent" routerLink="/admin" *ngIf="user.roles?.includes('admin')">
-            <mat-icon>admin_panel_settings</mat-icon>
-            Admin Panel
+          <button class="btn btn-primary" routerLink="/profile">👤 View Profile</button>
+          <button class="btn btn-accent" routerLink="/admin" *ngIf="user.roles?.includes('admin')">
+            🧑‍💼 Admin Panel
           </button>
         </div>
-      </mat-card-content>
-    </mat-card>
+      </div>
+    </div>
   </div>
 
+  <!-- Loading -->
   <div *ngIf="isLoading" class="loading">
-    <mat-icon class="spinner">sync</mat-icon>
+    <div class="spinner"></div>
     <p>Loading...</p>
   </div>
 </div>
-
