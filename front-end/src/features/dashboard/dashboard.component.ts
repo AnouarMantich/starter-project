@@ -27,11 +27,4 @@ export class DashboardComponent implements OnInit {
       this.isLoading = false;
     });
   }
-
-  /**
-   * Logout the current user
-   */
-  logout(): void {
-    this.authService.logout();
-  }
 }

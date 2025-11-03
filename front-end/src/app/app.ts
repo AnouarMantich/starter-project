@@ -1,3 +1,4 @@
+import { NavbarComponent } from '../features/navbar/navbar.component';
 import { KeycloakService } from './../core/services/keycloak.service';
 import { UserService } from './../core/services/user-service';
 import { Component, OnInit } from '@angular/core';
@@ -9,7 +10,7 @@ import { RouterOutlet } from '@angular/router';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, NavbarComponent],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })

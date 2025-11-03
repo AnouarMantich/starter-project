@@ -1,0 +1,32 @@
+<nav class="navbar">
+  <div class="navbar-container">
+    <div class="navbar-brand">
+      <a routerLink="/home">MyApp</a>
+    </div>
+
+    <ul class="nav-links">
+      <li><a routerLink="/home" routerLinkActive="active">Home</a></li>
+      <li><a routerLink="/dashboard" routerLinkActive="active">Dashboard</a></li>
+      @if(user?.roles?.includes('ADMIN')){
+      <li><a routerLink="/admin" routerLinkActive="active">Admin</a></li>
+      <li><a routerLink="/users" routerLinkActive="active">Users</a></li>
+      }
+    </ul>
+
+    <div class="dropdown">
+      <button class="dropbtn">
+        <span class="material-icons">account_circle</span> Account
+        <span class="arrow">&#9662;</span>
+      </button>
+      <div class="dropdown-content">
+        @if(!isAuthenticated){
+        <a routerLink="/login" (click)="login()">Login</a>
+        <a routerLink="/signup" (click)="register()">Sign Up</a>
+        } @if(isAuthenticated){
+        <a routerLink="/profile">Profile</a>
+        <a routerLink="/logout" (click)="logout()">Logout</a>
+        }
+      </div>
+    </div>
+  </div>
+</nav>
